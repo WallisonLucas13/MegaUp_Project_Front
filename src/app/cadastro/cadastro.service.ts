@@ -8,7 +8,7 @@ import { cliente } from '../models/cliente';
 })
 export class CadastroService {
 
-  private API: string = "https://serralheriaproject-production.up.railway.app/Clientes/New";
+  private API: string = "https://megaupprojectback-production.up.railway.app/Clientes/New";
 
   private HEADER_FULL: HttpHeaders = new HttpHeaders();
   private HEADER_NAME: string = "Authorization";

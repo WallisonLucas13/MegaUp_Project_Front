@@ -11,8 +11,8 @@ import { AuthenticationResponse } from 'src/app/models/AuthenticationResponse';
 })
 export class LoginService {
 
-  private API_POST: string = "https://serralheriaproject-production.up.railway.app/api/login";
-  private API_POST_ACCESS: string = "https://serralheriaproject-production.up.railway.app/api/login/access";
+  private API_POST: string = "https://megaupprojectback-production.up.railway.app/api/login";
+  private API_POST_ACCESS: string = "https://megaupprojectback-production.up.railway.app/api/login/access";
   public token: string = "";
   private tokenForm: FormGroup;
 

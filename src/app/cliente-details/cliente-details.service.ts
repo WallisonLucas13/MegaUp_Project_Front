@@ -12,10 +12,10 @@ import { Servico } from '../models/servico';
 export class clienteDetailsService {
 
   //APIS
-  private API_PUT: string = "https://serralheriaproject-production.up.railway.app/Clientes/Edit";
-  private API_GET: string = "https://serralheriaproject-production.up.railway.app/Servicos/Todos";
-  private API_POST_SERVICO: string = "https://serralheriaproject-production.up.railway.app/Servicos/New";
-  private API_DELETE_SERVICO: string = "https://serralheriaproject-production.up.railway.app/Servicos/Delete";
+  private API_PUT: string = "https://megaupprojectback-production.up.railway.app/Clientes/Edit";
+  private API_GET: string = "https://megaupprojectback-production.up.railway.app/Servicos/Todos";
+  private API_POST_SERVICO: string = "https://megaupprojectback-production.up.railway.app/Servicos/New";
+  private API_DELETE_SERVICO: string = "https://megaupprojectback-production.up.railway.app/Servicos/Delete";
 
   //PARAMS
   private param: HttpParams = new HttpParams();

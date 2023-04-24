@@ -8,8 +8,8 @@ import { cliente } from '../models/cliente';
 })
 export class clientesService {
 
-  private API_GET: string = "https://serralheriaproject-production.up.railway.app/Clientes/Todos";
-  private API_DELETE: string = "https://serralheriaproject-production.up.railway.app/Clientes/Delete";
+  private API_GET: string = "https://megaupprojectback-production.up.railway.app/Clientes/Todos";
+  private API_DELETE: string = "https://megaupprojectback-production.up.railway.app/Clientes/Delete";
   private param_delete: HttpParams = new HttpParams();
 
   //HEADERS

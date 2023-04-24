@@ -10,10 +10,10 @@ import UserViewModel from '../models/UserViewModel';
 })
 export class AdminService {
 
-  private API_GET_USERS: string = "https://serralheriaproject-production.up.railway.app/api/users";
-  private API_POST_USER: string = "https://serralheriaproject-production.up.railway.app/api/register";
-  private API_DELETE_USER: string = "https://serralheriaproject-production.up.railway.app/api/delete/";
-  private API_POST_CODE: string = "https://serralheriaproject-production.up.railway.app/api/user/access";
+  private API_GET_USERS: string = "https://megaupprojectback-production.up.railway.app/api/users";
+  private API_POST_USER: string = "https://megaupprojectback-production.up.railway.app/api/register";
+  private API_DELETE_USER: string = "https://megaupprojectback-production.up.railway.app/api/delete/";
+  private API_POST_CODE: string = "https://megaupprojectback-production.up.railway.app/api/user/access";
 
   constructor(private loginService: LoginService, private http: HttpClient) {}
 

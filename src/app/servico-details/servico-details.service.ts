@@ -13,24 +13,24 @@ import Entrada from '../models/Entrada';
 export class ServicoDetailsService {
 
   //APIS
-  private API_SERVICO_PUT: string = "https://serralheriaproject-production.up.railway.app/Servicos/Edit";
+  private API_SERVICO_PUT: string = "https://megaupprojectback-production.up.railway.app/Servicos/Edit";
   private param_SERVIVO_PUT: HttpParams = new HttpParams();
-  private API_MATERIAIS_GET: string = "https://serralheriaproject-production.up.railway.app/Material/Todos";
+  private API_MATERIAIS_GET: string = "https://megaupprojectback-production.up.railway.app/Material/Todos";
   private param_MATERIAIS_GET: HttpParams = new HttpParams();
-  private API_MATERIAIS_DELETE: string = "https://serralheriaproject-production.up.railway.app/Material/Delete";
+  private API_MATERIAIS_DELETE: string = "https://megaupprojectback-production.up.railway.app/Material/Delete";
   private param_MATERIAIS_DELETE: HttpParams = new HttpParams();
-  private API_MATERIAIS_POST: string = "https://serralheriaproject-production.up.railway.app/Material/New";
+  private API_MATERIAIS_POST: string = "https://megaupprojectback-production.up.railway.app/Material/New";
   private param_MATERIAIS_POST: HttpParams = new HttpParams();
-  private API_SERVICO_PUT_MAO_DE_OBRA: string = "https://serralheriaproject-production.up.railway.app/Servicos/MaoDeObra";
+  private API_SERVICO_PUT_MAO_DE_OBRA: string = "https://megaupprojectback-production.up.railway.app/Servicos/MaoDeObra";
   private param_SERVICO_PUT_MAO_DE_OBRA: HttpParams = new HttpParams();
   private param_SERVICO_MAO_DE_OBRA_GET: HttpParams = new HttpParams();
-  private API_SERVICO_MAO_DE_OBRA_GET: string = "https://serralheriaproject-production.up.railway.app/Servicos/Valores";
+  private API_SERVICO_MAO_DE_OBRA_GET: string = "https://megaupprojectback-production.up.railway.app/Servicos/Valores";
   private param_SERVICO_DESCONTO_PUT: HttpParams = new HttpParams();
-  private API_SERVICO_DESCONTO_PUT: string = "https://serralheriaproject-production.up.railway.app/Servicos/Desconto";
-  private API_SERVICO_ENTRADA_PUT: string = "https://serralheriaproject-production.up.railway.app/Servicos/Entrada/";
-  private API_SERVICO_PAGAMENTO_FINAL_PUT: string = "https://serralheriaproject-production.up.railway.app/Servicos/PagamentoFinal/";
+  private API_SERVICO_DESCONTO_PUT: string = "https://megaupprojectback-production.up.railway.app/Servicos/Desconto";
+  private API_SERVICO_ENTRADA_PUT: string = "https://megaupprojectback-production.up.railway.app/Servicos/Entrada/";
+  private API_SERVICO_PAGAMENTO_FINAL_PUT: string = "https://megaupprojectback-production.up.railway.app/Servicos/PagamentoFinal/";
   private param_SERVICO_ORCAMENTO_POST: HttpParams = new HttpParams();
-  private API_SERVICO_ORCAMENTO_POST: string = "https://serralheriaproject-production.up.railway.app/Servicos/Orcamento";
+  private API_SERVICO_ORCAMENTO_POST: string = "https://megaupprojectback-production.up.railway.app/Servicos/Orcamento";
 
   //HEADERS
   private HEADER_FULL: HttpHeaders = new HttpHeaders();
@@ -87,11 +87,11 @@ export class ServicoDetailsService {
     return this.http.put<Desconto>(this.API_SERVICO_DESCONTO_PUT, form.value,{params: this.param_SERVICO_DESCONTO_PUT,  headers: this.HEADER_FULL});
   }
   sendPutEntrada(id: number | undefined, form: FormGroup){
-    this.API_SERVICO_ENTRADA_PUT = "https://serralheriaproject-production.up.railway.app/Servicos/Entrada/" + id;
+    this.API_SERVICO_ENTRADA_PUT = "https://megaupprojectback-production.up.railway.app/Servicos/Entrada/" + id;
     return this.http.put<Entrada>(this.API_SERVICO_ENTRADA_PUT, form.value, {headers: this.HEADER_FULL});
   }
   sendPutPagamentoFinal(id: number | undefined, form: FormGroup){
-    this.API_SERVICO_PAGAMENTO_FINAL_PUT = "https://serralheriaproject-production.up.railway.app/Servicos/PagamentoFinal/" + id;
+    this.API_SERVICO_PAGAMENTO_FINAL_PUT = "https://megaupprojectback-production.up.railway.app/Servicos/PagamentoFinal/" + id;
     return this.http.put<Entrada>(this.API_SERVICO_PAGAMENTO_FINAL_PUT, form.value, {headers: this.HEADER_FULL});
   }
 
