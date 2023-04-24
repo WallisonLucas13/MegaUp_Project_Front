@@ -1,0 +1,400 @@
+.contentAll {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.loading-spinner-mini {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+}
+
+//Title -----------------------------
+.titleDesc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+.titleDesc h1 {
+  font-size: 20pt;
+  font-weight: bold
+}
+
+.titleDesc p {
+  color: #7b7b7b;
+  font-size: 14pt;
+}
+
+//----------------------------------
+
+.custoMaterial {
+  color: green;
+  margin-left: 1em;
+  font-weight: bold;
+}
+
+.box-Orcamento-Content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
+.box-Orcamento-Content span{
+  color: #7b7b7b;
+}
+
+//Back Line -------------------------------------
+.backPage {
+  display: flex;
+  font-size: 14pt;
+  margin-left: 0.5em;
+  bottom: 20px;
+  position: relative;
+}
+
+.backPage span {
+  color: #222;
+  border-bottom: 3px #ffbb33 solid;
+  margin-left: 0.5em;
+  cursor: pointer;
+  transition: 1.1;
+}
+
+.backPage span:hover {
+  color: gray;
+  border-bottom: 3px #ffbb33 solid;
+  margin-left: 0.5em;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+//---------------------------------------------
+
+//Table ---------------------------------------
+.cellHeader {
+  color: #ffbb33;
+  font-family: monospace;
+  font-size: 13pt;
+}
+
+.cellBody {
+  color: #f4f4f4;
+}
+
+.contentTable {
+  overflow-x: auto;
+  background-color: #222;
+}
+
+.contentTable::-webkit-scrollbar {
+  width: 15px;
+}
+
+.contentTable::-webkit-scrollbar-track {
+  background-color: #222;
+}
+
+.contentTable::-webkit-scrollbar-thumb {
+  background: #ffbb33;
+  border-radius: 5px;
+}
+
+//--------------------------------------------
+
+//Cards ---------------------------
+.card-materiais,
+.maoDeObraForm,
+.descontoForm,
+.orcamentoForm,
+.atualizar-servico-card,
+.card-info {
+  background-color: #222;
+  margin-top: 3em;
+  width: 50%;
+  border: 1px #222 solid;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+//---------------------------------
+//Toolbar Cards -------------------
+.card-materiais mat-toolbar,
+.maoDeObraForm mat-toolbar,
+.descontoForm mat-toolbar,
+.orcamentoForm mat-toolbar,
+.atualizar-servico-card mat-toolbar,
+.card-info mat-toolbar {
+  background-color: #ffbb33;
+  font-family: monospace;
+  font-size: 13pt;
+  margin-bottom: 1em;
+}
+
+//--------------------------------
+
+//Inputs Customs ------------------
+.example-full-width {
+  width: 90%;
+  background-color: #222;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.example-full-width-maoDeObra,
+.example-full-width-desconto {
+  width: 40%;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+}
+.example-full-width-pagamentoSelect{
+  margin-top: 1.5em;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+  color: #f4f4f4;
+}
+.example-full-width-pagamentoSelect select{
+  border: none;
+  padding: 1em;
+  background-color: transparent;
+  border-bottom: 1px #f4f4f4 solid;
+  color: #ffbb33;
+}
+.example-full-width-pagamentoSelect select::placeholder{
+  color: #ffbb33;
+}
+.example-full-width-pagamentoSelect mat-label{
+  color: #ffbb33;
+  margin-bottom: 0.5em;
+}
+.example-full-width-pagamentoSelect select option{
+ background-color: #222;
+  color: #f4f4f4;
+  border: none;
+}
+
+.example-form {
+  width: 100%;
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+.example-form input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea{
+  background-color: #222;
+  border-bottom: 1px white solid;
+  color: #f4f4f4;
+  padding: 1.5em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.example-form input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+input[type="email"]:focus{
+  background-color: #222;
+  border: none;
+  color: #f4f4f4;
+  border-bottom: 1px #ffbb33 solid;
+}
+
+.example-form mat-label{
+  background-color: #222;
+  margin-bottom: 0.5em;
+  border: none;
+  color: #f4f4f4;
+  margin-top: 1em;
+}
+
+.example-form input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder,
+input[type="email"]::placeholder{
+  background-color: #222;
+  border: none;
+  color: #7b7b7b;
+}
+
+.example-form button {
+  background-color: #222;
+  color: #ffbb33;
+  border: 1px #ffbb33 solid;
+  margin-top: 1.5em;
+  transition: 0.2s;
+}
+
+.example-form button:hover {
+  transform: scale(1.1);
+  background-color: #ffbb33;
+  color: #222;
+}
+
+.contentFormTitle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+//-----------------------------------------------------------------
+
+//Responsive Media 900px
+@media screen and (max-width: 900px) {
+  .descIcon {
+    display: none;
+  }
+
+  .headerPanel {
+    padding: 1.5em;
+  }
+
+  .custoMaterialDesc {
+    display: none;
+  }
+
+  .custoMaterial {
+    color: green;
+    display: block;
+  }
+
+  .card-materiais {
+    width: 100%;
+  }
+
+  .content-form-material {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .maoDeObraForm {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .descontoForm {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .orcamentoForm {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .atualizar-servico-card {
+    width: 80%;
+  }
+}
+
+//------------------------------------------------------
+
+//Responsive Media 550px -------------------------------
+@media screen and (max-width: 550px) {
+  .card-info {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .example-full-width {
+    width: 100%;
+    display: grid;
+  }
+
+  .atualizar-servico-card {
+    width: 100%;
+  }
+
+  .maoDeObraForm {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .descontoForm {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .orcamentoForm {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .titleDesc h1 {
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .titleDesc p {
+    text-align: center;
+    color: #7b7b7b;
+    font-size: 14pt;
+  }
+
+  .descIconHeader {
+    display: none;
+  }
+
+  .backPage {
+    display: flex;
+    font-size: 12pt;
+    bottom: 20px;
+    position: relative;
+  }
+
+  .example-form mat-label {
+    margin-left: 1em;
+  }
+
+}
+//----------------------------------------------
+
+@media screen and (max-width: 400px) {
+  .descIconPaid {
+    display: none;
+  }
+}

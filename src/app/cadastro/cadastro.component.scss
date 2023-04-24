@@ -1,0 +1,199 @@
+.contentAll{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.full-width{
+    width: 100%;
+}
+mat-card{
+    width: 60%;
+    margin:auto;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.min-width{
+    width: 100%;
+    min-height: 150px;
+}
+.custom-snack-error{
+    color: red !important;
+    background-color: red !important;
+}
+.example-spacer {
+    flex: 1 1 auto;
+  }
+::ng-deep .fail{
+    color: black !important;
+    background-color: red !important;
+}
+
+.loading-spinner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+.example-form {
+    width: 100%;
+    background-color: #222;
+  }
+.example-form button{
+  background-color: #222;
+  color: #ffbb33;
+  border: 1px #ffbb33 solid;
+  margin-top: 1.5em;
+  transition: 0.2s;
+}
+.example-form button:hover{
+ transform: scale(1.1);
+ background-color: #ffbb33;
+ color: #222;
+}
+  
+.example-full-width {
+    width: 100%;
+    background-color:#222;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: start;
+    margin-bottom: 0.5em;
+  }
+.example-form input[type="text"], input[type="tel"]{
+  background-color: #222;
+  border-bottom: 1px white solid;
+  color: #f4f4f4;
+  padding: 1.5em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.example-form input[type="text"]:focus, input[type="tel"]:focus{
+  background-color: #222;
+  border:none;
+  color: #f4f4f4;
+  border-bottom: 1px #ffbb33 solid;
+}
+.example-form mat-label{
+  background-color: #222;
+  margin-bottom: 0.5em;
+  border: none;
+  color: #f4f4f4;
+  margin-top: 1em;
+}
+.example-form input[type="text"]::placeholder,  input[type="tel"]::placeholder{
+  background-color: #222;
+  border: none;
+  color: #7b7b7b;
+}
+  
+  td {
+    padding-right: 8px;
+  }
+
+  .toolbar-card{
+    border-bottom: 1px #7b7b7b solid;
+    margin-bottom: 0.5em;
+    background-color: #ffbb33;
+    font-family: monospace;
+    color: #222;
+  }
+  .toolbar-card button{
+    border: 1px #222 solid;
+    transition: 0.2s;
+    color: #222;
+  }
+  .toolbar-card button:hover{
+    border: none;
+    background-color: #222;
+    color: #ffbb33;
+    transform: scale(1.1);
+  }
+  .formNew{
+    margin-top: 1em;
+    background-color: #222;
+    border: 1px #222 solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+.titleDesc{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.titleDesc h1{
+  font-size: 20pt;
+  font-weight: bold
+}
+.titleDesc p{
+  color: #7b7b7b;
+  margin-bottom: 1em;
+  font-size: 14pt;
+}
+.backPage{
+  display: flex;
+  font-size: 14pt;
+  margin-left: 0.5em;
+  bottom: 20px;
+  position: relative;
+}
+.backPage span{
+  color: #222;
+  border-bottom: 3px #ffbb33 solid;
+  margin-left: 0.5em;
+  cursor: pointer;
+  transition: 1.1;
+}
+.backPage span:hover{
+  color: gray;
+  border-bottom: 3px #ffbb33 solid;
+  margin-left: 0.5em;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+@media screen and (max-width: 800px){
+  mat-card{
+    width: 80%;
+    margin:auto;
+    text-align: center;
+}
+}
+@media screen and (max-width: 600px){
+  mat-card{
+    width: 90%;
+    margin:auto;
+    text-align: center;
+}
+.titleDesc h1{
+  font-size: 17pt;
+  font-weight: bold;
+  text-align: center;
+}
+
+.titleDesc p{
+  text-align: center;
+  color: #7b7b7b;
+  margin-bottom: 1.5em;
+  font-size: 14pt;
+}
+}
+@media screen and (max-width: 500px){
+  mat-card{
+    width: 100%;
+    margin:auto;
+    text-align: center;
+}
+.example-full-width {
+  width: 100%;
+  display: grid;
+}
+.backPage{
+  display: flex;
+  font-size: 12pt;
+  bottom: 20px;
+  position: relative;
+}
+}

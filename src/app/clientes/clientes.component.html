@@ -1,0 +1,92 @@
+<div class="contentAll">
+
+    <div class="backPage">
+        <span (click)="backPage()" style="display: flex;">
+            <mat-icon>arrow_back</mat-icon>
+            <p>...Voltar</p>
+        </span>
+    </div>
+
+    <div class="titleDesc">
+        <h1>Meus Clientes</h1>
+        <p>Gerencie seus clientes e seus serviços</p>
+    </div>
+
+<mat-card class="cardContent">
+
+        <mat-toolbar class="toolbar-card">
+
+            <span>Clientes</span>
+            <span class="example-spacer"></span>
+            <button mat-stroked-button (click)="goCadastroPage()">Salvar Novo</button>
+            
+        </mat-toolbar>         
+
+        <div *ngIf="clientes$ | async as clientes; else loading" class="contentTable">
+
+            <table mat-table [dataSource]="clientes" class="mat-elevation-z8" style="background-color: #222;color: #f4f4f4;margin-bottom: 2em;">
+
+                <ng-container matColumnDef="nome">
+                    <th mat-header-cell *matHeaderCellDef class="cellHeader">Nome</th>
+                    <td mat-cell *matCellDef="let cliente of clientes" class="cellBody"> {{cliente.nome}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tel">
+                    <th mat-header-cell *matHeaderCellDef class="cellHeader">Telefone</th>
+                    <td mat-cell *matCellDef="let cliente of clientes" class="cellBody"> {{cliente.tel}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef class="cellHeader">Editar</th>
+                    <td mat-cell *matCellDef="let cliente of clientes"> 
+
+                        <button style="color: green" (click)="goEditPage(cliente)" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef class="cellHeader">Apagar</th>
+                    <td mat-cell *matCellDef="let cliente of clientes"> 
+
+                        <button style="color: #9f0601" [matMenuTriggerFor]="menu" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+
+                          <mat-menu #menu="matMenu" xPosition="before" style="background-color: #222;">
+                            <button mat-menu-item style="background-color: #222;">
+                              <mat-icon style="color: #ffbb33;">warning</mat-icon>
+                              <span style="color: #ffbb33;">Tem Certeza?</span>
+                            </button>
+                            <button mat-menu-item style="background-color: #222;margin-bottom: 0;">
+                              <mat-icon style="color: #9f0601;">close</mat-icon>
+                              <span style="color: #ffbb33;">Não</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteCliente(cliente.id)" style="background-color:#222">
+                                <mat-icon style="color: green">check</mat-icon>
+                                <span style="color: #ffbb33;">Sim</span>
+                              </button>
+                          </mat-menu>
+
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+
+
+        </div>
+
+        <ng-template #loading>
+            <div class="loading-spinner">
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+        </ng-template>
+
+</mat-card>
+
+</div>
