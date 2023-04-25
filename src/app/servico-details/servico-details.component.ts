@@ -9,6 +9,7 @@ import { Servico } from '../models/servico';
 import { ServicoDetailsService } from './servico-details.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../Auth/login/login.service';
+import Etapa from '../models/Etapa';
 
 @Component({
   selector: 'app-servico-details',
@@ -18,11 +19,13 @@ import { LoginService } from '../Auth/login/login.service';
 export class ServicoDetailsComponent {
 
   idCliente: number | undefined;
-  panelShow: number=0;
+  panelShow: number = 0;
   displayedColumns: string[] = ['nome', 'desc'];
   displayedColumnsMateriais: string[] = ['nome', 'quant', 'valor', 'delete'];
+  displayedColumnsEtapas: string[] = ['id', 'valor', 'delete'];
   formServico: FormGroup;
   formMaterial: FormGroup;
+  formEtapa: FormGroup;
   formVerifyLogged: FormGroup | undefined;
   descontoForm: FormGroup;
   materiais$: Observable<Material[]> | undefined;
@@ -36,30 +39,30 @@ export class ServicoDetailsComponent {
   pagamentoFinalForm: FormGroup;
   isDivEm: boolean = false;
 
-  constructor(private route: Router, private service: ServicoDetailsService, private toast: ToastrService, 
-    private loginService: LoginService){
+  constructor(private route: Router, private service: ServicoDetailsService, private toast: ToastrService,
+    private loginService: LoginService) {
 
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
       this.loginService.sendLoginWithToken();
-    }else{
+    } else {
       this.route.navigateByUrl("user/login")
     }
-    
+
     const servico = localStorage.getItem("servicoDetails");
     const cliente = localStorage.getItem("clienteDetails");
 
-    if(servico && cliente){
+    if (servico && cliente) {
       this.servicoDetails = JSON.parse(servico);
       this.idCliente = JSON.parse(cliente).id;
 
-      if(this.servicoDetails){
+      if (this.servicoDetails) {
         this.servicoDetailsList.push(this.servicoDetails);
       }
     }
-    
+
     this.formServico = new FormGroup({
-      nome: new FormControl(this.servicoDetails?.nome,[Validators.required]),
-      desc: new FormControl(this.servicoDetails?.desc,[Validators.required])
+      nome: new FormControl(this.servicoDetails?.nome, [Validators.required]),
+      desc: new FormControl(this.servicoDetails?.desc, [Validators.required])
     });
 
     this.formOrcamento = new FormGroup({
@@ -71,10 +74,13 @@ export class ServicoDetailsComponent {
     })
 
     this.formMaterial = new FormGroup({
-      nome: new FormControl("",[Validators.required]),
-      quant: new FormControl("",[Validators.required]),
+      nome: new FormControl("", [Validators.required]),
+      quant: new FormControl("", [Validators.required]),
       valor: new FormControl("", [Validators.required])
     });
+    this.formEtapa = new FormGroup({
+      valor: new FormControl("", [Validators.required]),
+    })
 
     this.formServicoMaoDeObra = new FormGroup({
       valor: new FormControl("", [Validators.required])
@@ -96,19 +102,19 @@ export class ServicoDetailsComponent {
 
   }
 
-  setPanelShow(panel: number){
+  setPanelShow(panel: number) {
     this.panelShow = panel;
   }
 
-  getMateriais(){
+  getMateriais() {
     this.materiais$ = this.service.sendGetMateriais(this.servicoDetails?.id);
   }
 
-  deleteMaterial(id: number){
+  deleteMaterial(id: number) {
     this.service.sendDeleteMaterial(id).pipe(
 
       map(() => {
-        this.toast.success("Material Apagado!", "",{
+        this.toast.success("Material Apagado!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
@@ -124,32 +130,55 @@ export class ServicoDetailsComponent {
         });
         return of([]);
       })
-    ).subscribe(() => {});;
+    ).subscribe(() => { });;
   }
 
-  submitServico(){
+  deleteEtapa(id: number) {
+    this.service.sendDeleteEtapa(id).pipe(
 
-    if(this.formServico.get('nome')?.invalid || this.formServico.get('desc')?.invalid){
-      this.toast.warning("Campos Vazios! Tente Novamente!", "",{
+      map(() => {
+        this.toast.success("Etapa Apagada!", "", {
+          timeOut: 1000,
+          positionClass: "toast-bottom-center"
+        });
+
+        this.getMateriais();
+        this.getMaoDeObra();
+      }),
+
+      catchError(() => {
+        this.toast.error("Sem Permissão!", "", {
+          timeOut: 2000,
+          positionClass: "toast-bottom-center"
+        });
+        return of([]);
+      })
+    ).subscribe(() => { });;
+  }
+
+  submitServico() {
+
+    if (this.formServico.get('nome')?.invalid || this.formServico.get('desc')?.invalid) {
+      this.toast.warning("Campos Vazios! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
 
       return;
     }
-    
+
     this.service.sendPutRequest(this.formServico, this.servicoDetails?.id).pipe(
-      
+
       map(() => {
-        this.toast.success("Serviço Atualizado com Sucesso!", "",{
+        this.toast.success("Serviço Atualizado com Sucesso!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
 
         this.formServico.addControl("id", new FormControl(this.servicoDetails?.id));
         localStorage.setItem("servicoDetails", JSON.stringify(this.formServico.value));
-        
-        setTimeout(() => location.reload(),1000);
+
+        setTimeout(() => location.reload(), 1000);
       }),
 
       catchError(() => {
@@ -161,24 +190,24 @@ export class ServicoDetailsComponent {
         return of([]);
       })
 
-    ).subscribe(response => {});
+    ).subscribe(response => { });
 
   }
 
-  submitMaterial(){
+  submitMaterial() {
 
-    if(this.formMaterial.get('nome')?.invalid || this.formMaterial.get('valor')?.invalid || this.formMaterial.get('quant')?.invalid){
-      this.toast.warning("Campos Vazios! Tente Novamente!", "",{
+    if (this.formMaterial.get('nome')?.invalid || this.formMaterial.get('valor')?.invalid || this.formMaterial.get('quant')?.invalid) {
+      this.toast.warning("Campos Vazios! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
       return;
     }
-    
+
     this.service.sendNewMaterial(this.formMaterial, this.servicoDetails?.id).pipe(
-      
+
       map(() => {
-        this.toast.success("Material Adicionado com Sucesso!", "",{
+        this.toast.success("Material Adicionado com Sucesso!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
@@ -190,29 +219,74 @@ export class ServicoDetailsComponent {
 
       catchError((err) => {
 
-        if(err.status === 403){
+        if (err.status === 403) {
           this.toast.error("Sem Permissão!", "", {
             timeOut: 2000,
             positionClass: "toast-bottom-center"
           });
         }
-        else{
-        this.toast.error("Material Existente, Altere os campos!", "",{
-          timeOut: 2000,
-          positionClass: "toast-bottom-center"
-        });
-      }
+        else {
+          this.toast.error("Material Existente, Altere os campos!", "", {
+            timeOut: 2000,
+            positionClass: "toast-bottom-center"
+          });
+        }
 
         return of([]);
       })
 
-    ).subscribe(()=> {});
+    ).subscribe(() => { });
 
   }
 
-  getMaoDeObra(){
+  submitEtapa() {
+
+    if (this.formEtapa.get('valor')?.invalid) {
+      this.toast.warning("Campo Vazio! Tente Novamente!", "", {
+        timeOut: 2000,
+        positionClass: "toast-bottom-center"
+      });
+      return;
+    }
+
+    this.service.sendEtapa(this.formEtapa, this.servicoDetails?.id).pipe(
+
+      map(() => {
+        this.toast.success("Etapa Adicionada com Sucesso!", "", {
+          timeOut: 1000,
+          positionClass: "toast-bottom-center"
+        });
+
+        this.formEtapa.reset(this.formEtapa);
+        this.getMaoDeObra();
+      }),
+
+      catchError((err) => {
+
+        if (err.status === 403) {
+          this.toast.error("Sem Permissão!", "", {
+            timeOut: 2000,
+            positionClass: "toast-bottom-center"
+          });
+        }
+        if (err.status === 417) {
+          this.toast.error("O valor ultrapassou o teto de gastos disponível!", "", {
+            timeOut: 2000,
+            positionClass: "toast-bottom-center"
+          });
+        }
+
+        return of([]);
+      })
+
+    ).subscribe(() => { });
+
+  }
+
+  getMaoDeObra() {
     this.maoDeObra$ = this.service.sendGetMaoDeObra(this.servicoDetails?.id);
     this.maoDeObra$.subscribe(response => {
+      console.log(response);
       this.entradaForm = new FormGroup({
         porcentagem: new FormControl(response.entrada.porcentagem, [Validators.required]),
         formaPagamento: new FormControl(response.entrada.formaPagamento, [Validators.required])
@@ -223,20 +297,20 @@ export class ServicoDetailsComponent {
     });
   }
 
-  submitMaoDeObra(){
+  submitMaoDeObra() {
 
-    if(this.formServicoMaoDeObra.get('valor')?.invalid){
-      this.toast.warning("Campos Vazios! Tente Novamente!", "",{
+    if (this.formServicoMaoDeObra.get('valor')?.invalid) {
+      this.toast.warning("Campos Vazios! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
       return;
     }
 
-    this.service.sendPutMaoDeOBra(this.formServicoMaoDeObra,this.servicoDetails?.id).pipe(
-      
+    this.service.sendPutMaoDeOBra(this.formServicoMaoDeObra, this.servicoDetails?.id).pipe(
+
       map(() => {
-        this.toast.success("Mão De Obra Atualizada com Sucesso!", "",{
+        this.toast.success("Mão De Obra Atualizada com Sucesso!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
@@ -253,13 +327,13 @@ export class ServicoDetailsComponent {
         return of([]);
       })
 
-    ).subscribe(() => {});
+    ).subscribe(() => { });
   }
 
-  submitDesconto(){
+  submitDesconto() {
 
-    if(this.descontoForm.get('porcentagem')?.invalid){
-      this.toast.warning("Campo Vazio! Tente Novamente!", "",{
+    if (this.descontoForm.get('porcentagem')?.invalid) {
+      this.toast.warning("Campo Vazio! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
@@ -267,9 +341,9 @@ export class ServicoDetailsComponent {
     }
 
     this.service.sendPutDesconto(this.servicoDetails?.id, this.descontoForm).pipe(
-      
+
       map(() => {
-        this.toast.success("Desconto aplicado com Sucesso!", "",{
+        this.toast.success("Desconto aplicado com Sucesso!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
@@ -286,13 +360,13 @@ export class ServicoDetailsComponent {
         return of([]);
       })
 
-    ).subscribe(() => {});
+    ).subscribe(() => { });
   }
 
-  submitEntrada(){
+  submitEntrada() {
 
-    if(this.entradaForm.get('porcentagem')?.invalid || this.entradaForm.get('formaPagamento')?.invalid){
-      this.toast.warning("Campos Vazios! Tente Novamente!", "",{
+    if (this.entradaForm.get('porcentagem')?.invalid || this.entradaForm.get('formaPagamento')?.invalid) {
+      this.toast.warning("Campos Vazios! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
@@ -300,9 +374,9 @@ export class ServicoDetailsComponent {
     }
 
     this.service.sendPutEntrada(this.servicoDetails?.id, this.entradaForm).pipe(
-      
+
       map(() => {
-        this.toast.success("Entrada Definida!", "",{
+        this.toast.success("Entrada Definida!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
@@ -319,13 +393,13 @@ export class ServicoDetailsComponent {
         return of([]);
       })
 
-    ).subscribe(() => {});
+    ).subscribe(() => { });
   }
 
-  submitFormaPagamentoFinal(){
+  submitFormaPagamentoFinal() {
 
-    if(this.pagamentoFinalForm.get('formaPagamento')?.invalid){
-      this.toast.warning("Campo Vazio! Tente Novamente!", "",{
+    if (this.pagamentoFinalForm.get('formaPagamento')?.invalid) {
+      this.toast.warning("Campo Vazio! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
@@ -333,9 +407,9 @@ export class ServicoDetailsComponent {
     }
 
     this.service.sendPutPagamentoFinal(this.servicoDetails?.id, this.pagamentoFinalForm).pipe(
-      
+
       map(() => {
-        this.toast.success("Forma de Pagamento Atualizada!", "",{
+        this.toast.success("Forma de Pagamento Atualizada!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
@@ -352,14 +426,14 @@ export class ServicoDetailsComponent {
         return of([]);
       })
 
-    ).subscribe(() => {});
+    ).subscribe(() => { });
   }
 
 
-  sendOrcamentoRequest(){
+  sendOrcamentoRequest() {
 
-    if(this.formOrcamento.get('adress')?.invalid){
-      this.toast.warning("Campos Vazio! Tente Novamente!", "",{
+    if (this.formOrcamento.get('adress')?.invalid) {
+      this.toast.warning("Campos Vazio! Tente Novamente!", "", {
         timeOut: 2000,
         positionClass: "toast-bottom-center"
       });
@@ -368,19 +442,19 @@ export class ServicoDetailsComponent {
 
     this.loading_template = true;
 
-    this.service.sendPostOrcamento(this.formOrcamento,this.servicoDetails?.id).pipe(
-      
+    this.service.sendPostOrcamento(this.formOrcamento, this.servicoDetails?.id).pipe(
+
       map(() => {
-        this.toast.success("Orçamento gerado com Sucesso!", "",{
+        this.toast.success("Orçamento gerado com Sucesso!", "", {
           timeOut: 1000,
           positionClass: "toast-bottom-center"
         });
 
         this.getMaoDeObra();
-        setTimeout(() => this.toast.info("Você receberá um email com o orçamento, caso não receba verifique se informou um email correto e Tente Novamente!","",{
+        setTimeout(() => this.toast.info("Você receberá um email com o orçamento, caso não receba verifique se informou um email correto e Tente Novamente!", "", {
           timeOut: 3000,
           positionClass: "toast-bottom-center"
-        }),1000);
+        }), 1000);
       }),
 
       catchError(() => {
@@ -392,10 +466,19 @@ export class ServicoDetailsComponent {
         return of([]);
       })
 
-    ).subscribe(() => {this.loading_template = false;});
+    ).subscribe(() => { this.loading_template = false; });
   }
 
-  backPage(){
+  calcValorDisponivel(etapas: Etapa[], teto: number) {
+  
+    let v = 0;
+    for (let i = 0; i < etapas.length; i++) {
+      v += Number(etapas[i].valor);
+    }
+    return teto - v;
+  }
+
+  backPage() {
     this.route.navigateByUrl('cliente/details');
   }
 

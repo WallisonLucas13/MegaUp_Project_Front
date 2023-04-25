@@ -431,7 +431,9 @@
                         </div>
 
                         <div class="example-full-width-pagamentoSelect">
-                            <mat-label>Forma de Pagamento <span *ngIf="maoDeObra$ | async as maoDeObra; else loadingMini" style="color:#ffbb33;"> - {{maoDeObra.entrada.formaPagamento}}</span></mat-label>
+                            <mat-label>Forma de Pagamento <span
+                                    *ngIf="maoDeObra$ | async as maoDeObra; else loadingMini" style="color:#ffbb33;"> -
+                                    {{maoDeObra.entrada.formaPagamento}}</span></mat-label>
                             <select formControlName="formaPagamento">
                                 <option value="" disabled selected="selected">ALTERAR</option>
                                 <option value="DEBITO">DEBITO</option>
@@ -458,6 +460,143 @@
         <mat-expansion-panel (opened)="setPanelShow(8)" [expanded]="panelShow === 8">
             <mat-expansion-panel-header class="headerPanel">
                 <mat-panel-title>
+                    Gerenciar Etapas
+                    &nbsp;
+                    <mat-icon class="descIcon">currency_exchange</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+
+                    <span>Etapas</span>
+
+                    <span class="example-spacer"></span>
+                    <mat-icon class="descIconHeader">currency_exchange</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-card class="card-materiais">
+
+                <mat-toolbar>
+                    <span style="font-weight: bold;">Etapas</span>
+                    <span class="example-spacer"></span>
+                    <div *ngIf="maoDeObra$ | async as maoDeObra; else loadingMini" style="display: flex;">
+                        <span class="custoMaterialDesc">Disponível: <span style="color: green;font-weight: bold;">R$ {{calcValorDisponivel(maoDeObra.etapas, maoDeObra.valorFinal)}},00</span></span>
+                    </div>
+
+                    &nbsp;
+                    &nbsp;
+                    <mat-icon>list</mat-icon>
+                </mat-toolbar>
+
+                <div *ngIf="maoDeObra$ | async as valores; else loadingMini" class="contentTable">
+                    <div *ngIf="valores.etapas as etapas">
+
+                        <table mat-table [dataSource]="etapas" class="mat-elevation-z8"
+                            style="background-color: #222;margin-bottom: 2em;">
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef class="cellHeader">ID</th>
+                                <td mat-cell *matCellDef="let element" class="cellBody"> {{element.iden}}° Etapa </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="valor">
+                                <th mat-header-cell *matHeaderCellDef class="cellHeader">Valor</th>
+                                <td mat-cell *matCellDef="let element" class="cellBody" style="color: green;">
+                                    R${{element.valor}},00 </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="delete">
+                                <th mat-header-cell *matHeaderCellDef class="cellHeader">Apagar</th>
+                                <td mat-cell *matCellDef="let element">
+
+                                    <button color="accent" [mat-menu-trigger-for]="menu" mat-icon-button
+                                        class="example-icon favorite-icon"
+                                        aria-label="Example icon-button with heart icon">
+                                        <mat-icon style="color: #9f0601;">delete</mat-icon>
+                                    </button>
+
+                                    <mat-menu #menu="matMenu" xPosition="before" style="background-color: #222;">
+                                        <button mat-menu-item style="background-color: #222;">
+                                            <mat-icon style="color: #ffbb33;">warning</mat-icon>
+                                            <span style="color: #ffbb33;">Tem Certeza?</span>
+                                        </button>
+                                        <button mat-menu-item style="background-color: #222;margin-bottom: 0;">
+                                            <mat-icon style="color: #9f0601;">close</mat-icon>
+                                            <span style="color: #ffbb33;">Não</span>
+                                        </button>
+                                        <button mat-menu-item (click)="deleteEtapa(element.id)"
+                                            style="background-color:#222">
+                                            <mat-icon style="color: green">check</mat-icon>
+                                            <span style="color: #ffbb33;">Sim</span>
+                                        </button>
+                                    </mat-menu>
+
+                                </td>
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsEtapas"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsEtapas;"></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <mat-accordion>
+
+                    <mat-expansion-panel>
+
+                        <mat-expansion-panel-header class="headerPanel">
+                            <mat-panel-title>
+                                Adicionar Etapa
+                                &nbsp;
+                                <mat-icon class="descIcon">add</mat-icon>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                insira uma nova etapa
+                                <span class="example-spacer"></span>
+                                <mat-icon class="descIconHeader">list</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <div class="contentFormTitle">
+                            <h1 style="font-family: monospace;border-bottom: 3px #ffbb33 solid;">Etapa</h1>
+                            <form [formGroup]="formEtapa" class="example-form">
+
+                                <table class="example-full-width" cellspacing="0" style="margin-top: 1.5em;">
+                                    <tr style="display: flex;flex-wrap: wrap;justify-content: center;">
+
+                                        <td>
+                                            <div class="example-full-width">
+                                                <mat-label>Valor</mat-label>
+                                                <input type="number" matInput placeholder="Valor"
+                                                    formControlName="valor" required>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+                                <div
+                                    style="display: flex;justify-content: center;align-items: center;margin-bottom: 1.5em;">
+                                    <button mat-stroked-button (click)="submitEtapa()">Adicionar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </mat-expansion-panel>
+
+
+                </mat-accordion>
+            </mat-card>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="setPanelShow(9)" [expanded]="panelShow === 9">
+            <mat-expansion-panel-header class="headerPanel">
+                <mat-panel-title>
                     Finalização
                     &nbsp;
                     <mat-icon class="descIcon">pending</mat-icon>
@@ -479,8 +618,9 @@
                 <mat-toolbar>
 
                     <div *ngIf="maoDeObra$ | async as maoDeObra; else loadingMini">
-                        <span style="font-size: 13pt;display: flex;flex-wrap: wrap;">O pagamento será de: 
-                            <span style="color: green;margin-left: 0.5em;">R$ {{maoDeObra.pagamentoFinal.valor}},00</span></span>
+                        <span style="font-size: 13pt;display: flex;flex-wrap: wrap;">O pagamento será de:
+                            <span style="color: green;margin-left: 0.5em;">R$
+                                {{maoDeObra.pagamentoFinal.valor}},00</span></span>
                     </div>
 
                     <span class="example-spacer"></span>
@@ -491,7 +631,9 @@
                     <form [formGroup]="pagamentoFinalForm" class="example-form">
 
                         <div class="example-full-width-pagamentoSelect">
-                            <mat-label>Forma de Pagamento <span *ngIf="maoDeObra$ | async as maoDeObra; else loadingMini" style="color:#ffbb33;"> - {{maoDeObra.pagamentoFinal.formaPagamento}}</span></mat-label>
+                            <mat-label>Forma de Pagamento <span
+                                    *ngIf="maoDeObra$ | async as maoDeObra; else loadingMini" style="color:#ffbb33;"> -
+                                    {{maoDeObra.pagamentoFinal.formaPagamento}}</span></mat-label>
                             <select formControlName="formaPagamento">
                                 <option value="" disabled selected="selected">ALTERAR</option>
                                 <option value="DEBITO">DEBITO</option>

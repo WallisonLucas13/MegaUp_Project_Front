@@ -31,6 +31,10 @@ export class ServicoDetailsService {
   private API_SERVICO_PAGAMENTO_FINAL_PUT: string = "https://megaupprojectback-production.up.railway.app/Servicos/PagamentoFinal/";
   private param_SERVICO_ORCAMENTO_POST: HttpParams = new HttpParams();
   private API_SERVICO_ORCAMENTO_POST: string = "https://megaupprojectback-production.up.railway.app/Servicos/Orcamento";
+  private param_SERVICO_ETAPA_POST: HttpParams = new HttpParams();
+  private API_SERVICO_ETAPA_POST: string = "https://megaupprojectback-production.up.railway.app/Servicos/Etapa";
+  private param_SERVICO_ETAPA_DELETE: HttpParams = new HttpParams();
+  private API_SERVICO_ETAPA_DELETE: string = "https://megaupprojectback-production.up.railway.app/Servicos/Etapa/Delete";
 
   //HEADERS
   private HEADER_FULL: HttpHeaders = new HttpHeaders();
@@ -67,6 +71,18 @@ export class ServicoDetailsService {
     this.param_MATERIAIS_POST = this.param_MATERIAIS_POST.set('id', String(id));
 
     return this.http.post(this.API_MATERIAIS_POST, form.value, {params: this.param_MATERIAIS_POST,  headers: this.HEADER_FULL});
+  }
+
+  sendEtapa(form: FormGroup, id: number | undefined){
+    this.param_SERVICO_ETAPA_POST = this.param_SERVICO_ETAPA_POST.set('id', String(id));
+
+    return this.http.post(this.API_SERVICO_ETAPA_POST, form.value, {params: this.param_SERVICO_ETAPA_POST,  headers: this.HEADER_FULL});
+  }
+
+  sendDeleteEtapa(id: number | undefined){
+    this.param_SERVICO_ETAPA_DELETE = this.param_SERVICO_ETAPA_DELETE.set('id', String(id));
+
+    return this.http.delete(this.API_SERVICO_ETAPA_DELETE, {params: this.param_SERVICO_ETAPA_DELETE,  headers: this.HEADER_FULL});
   }
 
   sendPutMaoDeOBra(form: FormGroup, id: number | undefined){

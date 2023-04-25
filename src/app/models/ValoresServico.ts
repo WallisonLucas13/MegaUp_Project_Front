@@ -1,4 +1,5 @@
 import Entrada from "./Entrada";
+import Etapa from "./Etapa";
 import PagamentoFinal from "./PagamentoFinal";
 
 export interface ValoresServico{
@@ -7,5 +8,6 @@ export interface ValoresServico{
     valorFinal: number,
     desconto: number,
     entrada: Entrada,
-    pagamentoFinal: PagamentoFinal
+    pagamentoFinal: PagamentoFinal,
+    etapas: Etapa[]
 }
