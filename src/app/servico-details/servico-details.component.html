@@ -207,7 +207,7 @@
                 <br>
                 <mat-accordion>
 
-                    <mat-expansion-panel>
+                    <mat-expansion-panel (opened)="setMaterialPanelShow(1)" [expanded]="panelShow === 1">
 
                         <mat-expansion-panel-header class="headerPanel">
                             <mat-panel-title>
@@ -657,7 +657,7 @@
     </mat-accordion>
 
     <mat-accordion>
-        <mat-expansion-panel (opened)="setPanelShow(9)" [expanded]="panelShow === 9">
+        <mat-expansion-panel (opened)="setPanelShow(10)" [expanded]="panelShow === 10">
             <mat-expansion-panel-header class="headerPanel">
                 <mat-panel-title>
                     Gerar Orçamento do serviço

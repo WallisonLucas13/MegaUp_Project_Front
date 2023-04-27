@@ -33,6 +33,7 @@ import { ToastrModule } from "ngx-toastr";
 import { AdminComponent } from './admin/admin.component';
 import {MatDividerModule} from '@angular/material/divider';
 import { ConfirmAccessComponent } from './confirm-access/confirm-access.component';
+import { Analytics } from '@vercel/analytics/react';
 
 @NgModule({
   declarations: [
