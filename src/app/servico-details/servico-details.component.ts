@@ -20,7 +20,7 @@ export class ServicoDetailsComponent {
 
   idCliente: number | undefined;
   panelShow: number = 0;
-  addMaterialPanelShow: number = 0;
+  addMaterialPanelShow: boolean = false;
   displayedColumns: string[] = ['nome', 'desc'];
   displayedColumnsMateriais: string[] = ['nome', 'quant', 'valor', 'delete'];
   displayedColumnsEtapas: string[] = ['id', 'valor', 'delete'];
@@ -213,7 +213,7 @@ export class ServicoDetailsComponent {
           positionClass: "toast-bottom-center"
         });
 
-        this.addMaterialPanelShow = 0;
+        this.addMaterialPanelShow = false;
         this.formMaterial.reset(this.formMaterial);
         this.getMateriais();
         this.getMaoDeObra();
@@ -482,10 +482,6 @@ export class ServicoDetailsComponent {
 
   backPage() {
     this.route.navigateByUrl('cliente/details');
-  }
-
-  setMaterialPanelShow(i: number){
-    this.addMaterialPanelShow = i;
   }
 
 
